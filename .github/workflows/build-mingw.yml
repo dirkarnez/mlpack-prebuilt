@@ -40,6 +40,11 @@ jobs:
         shell: cmd
         run: cd /d ${{ github.workspace }} && curl https://github.com/Kitware/CMake/releases/download/v3.24.0/cmake-3.24.0-windows-x86_64.zip -L --output cmake-3.24.0-windows-x86_64.zip && dir && 7z.exe x cmake-3.24.0-windows-x86_64.zip
           
+      - shell: cmd
+        run: |
+          curl https://github.com/dirkarnez/armadillo-prebuilt/releases/download/v12.6.1/armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0.zip  -L -O -J &&^
+          7z.exe x armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0.zip -o"armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0"
+          
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: cmd
         run: |
@@ -54,6 +59,7 @@ jobs:
             cmake.exe -G"MinGW Makefiles" ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBUILD_SHARED_LIBS=OFF ^
+            -DArmadillo_DIR="%CD:\=/%/armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0/share/Armadillo/CMake" ^
             -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" -B./cmake-build &&^
             cd cmake-build && cmake --build . && cmake --install . 
             
