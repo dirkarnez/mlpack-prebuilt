@@ -44,7 +44,12 @@ jobs:
         run: |
           curl https://github.com/dirkarnez/armadillo-prebuilt/releases/download/v12.6.1/armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0.zip  -L -O -J &&^
           7z.exe x armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0.zip -o"armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0"
-          
+
+      - shell: cmd
+        run: |
+          curl https://github.com/dirkarnez/ensmallen-prebuilt/releases/download/v2.19.1/ensmallen-v2.19.1-mingw64-x86_64-posix-seh-rev0-8.1.0.zip -L -O -J &&^
+          7z.exe x ensmallen-v2.19.1-mingw64-x86_64-posix-seh-rev0-8.1.0.zip -o"ensmallen-v2.19.1-mingw64-x86_64-posix-seh-rev0-8.1.0"
+
       - name: set PATH, check mingw version, cmake generate, build and install
         shell: cmd
         run: |
@@ -63,6 +68,7 @@ jobs:
             -DArmadillo_DIR="%ARMADILLO_ROOT%" ^
             -DARMADILLO_INCLUDE_DIR="%ARMADILLO_ROOT%/include" ^
             -DARMADILLO_LIBRARY="%ARMADILLO_ROOT%/lib/libarmadillo.a" ^
+            -Densmallen_DIR="%CD_LINUX%/ensmallen-v2.19.1-mingw64-x86_64-posix-seh-rev0-8.1.0/lib/cmake/ensmallen" ^
             -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" -B./cmake-build &&^
             cd cmake-build && cmake --build . && cmake --install . 
             
