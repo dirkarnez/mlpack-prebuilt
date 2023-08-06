@@ -56,7 +56,7 @@ jobs:
             set CD_LINUX=%CD:\=/%
             gcc --version &&^
             cd mlpack &&^
-            set ARMADILLO_ROOT=%CD_LINUX%/armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0;
+            set ARMADILLO_ROOT=%CD_LINUX%/armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0
             cmake.exe -G"MinGW Makefiles" ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBUILD_SHARED_LIBS=OFF ^
