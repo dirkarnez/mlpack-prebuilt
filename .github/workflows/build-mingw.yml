@@ -56,12 +56,13 @@ jobs:
             set CD_LINUX=%CD:\=/%
             gcc --version &&^
             cd mlpack &&^
+            set ARMADILLO_ROOT=%CD_LINUX%/armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0;
             cmake.exe -G"MinGW Makefiles" ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBUILD_SHARED_LIBS=OFF ^
-            -DArmadillo_DIR="%CD_LINUX%/armadillo-v12.6.1-mingw64-x86_64-posix-seh-rev0-8.1.0" ^
-            -DARMADILLO_INCLUDE_DIR="${Armadillo_DIR}/include" ^
-            -DARMADILLO_LIBRARY="${Armadillo_DIR}/lib/libarmadillo.a" ^
+            -DArmadillo_DIR="%ARMADILLO_ROOT%" ^
+            -DARMADILLO_INCLUDE_DIR="%ARMADILLO_ROOT%/include" ^
+            -DARMADILLO_LIBRARY="%ARMADILLO_ROOT%/lib/libarmadillo.a" ^
             -DCMAKE_INSTALL_PREFIX="cmake-build/${{ env.cmakeInstallationPath }}" -B./cmake-build &&^
             cd cmake-build && cmake --build . && cmake --install . 
             
